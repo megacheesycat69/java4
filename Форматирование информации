@@ -1,0 +1,29 @@
+public class FormatterExample {
+    public static void main(String[] args) {
+        String product = "Ноутбук"; // для %s
+        int quantity = 5;         // для %d
+        double price = 999.50;    // для %f
+        boolean inStock = true;   // для %b
+
+        //%n используется для перехода на новую строку
+        System.out.printf("Товар: %s%nКоличество: %d шт.%nЦена: %.2f USD%nВ наличии: %b%n", 
+                          product, quantity, price, inStock);
+    }
+}
+
+2)Метод flush() используется для принудительной записи данных из буфера в целевой поток (например, в файл, в сетевое соединение или в консоль).
+Вызов flush() заставляет программу немедленно «вытолкнуть» все накопленные в буфере данные и записать их прямо сейчас, не дожидаясь заполнения буфера или закрытия потока. Это критически важно, например, в сетевых чатах, где сообщение должно отправиться собеседнику моментально.
+
+3
+)import java.util.Date;
+public class DateFormatterExample {
+    public static void main(String[] args) {
+        Date currentDate = new Date();
+
+        // 1.Форматируем дату (День недели, месяц, год)
+        System.out.printf("Сегодня: %1$tA, Месяц: %1$tB, Год: %1$tY%n", currentDate);
+
+        // 2. Форматируем время
+        System.out.printf("Точное время: %1$tH:%1$tM%n", currentDate);
+    }
+}
