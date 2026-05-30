@@ -1,0 +1,12 @@
+1)class Parent {
+    final void doSomething() {}
+}
+
+class Child extends Parent {
+    @Override
+    void doSomething() {} //ошибка компиляции
+}
+
+2)final class Parent {}
+
+class Child extends Parent {} // Ошибка: cannot inherit from final class
