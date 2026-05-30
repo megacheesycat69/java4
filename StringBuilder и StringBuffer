@@ -1,0 +1,82 @@
+1)public class StringBuilderDemo {
+    public static void main(String[] args) {
+        // Создаем пустой объект StringBuilder
+        StringBuilder sb = new StringBuilder();
+
+        // 1. append() - Добавляет строку в конец текущего буфера
+        sb.append("Hello");
+        sb.append(" ");
+        sb.append("World");
+        System.out.println("1. append: " + sb); // Результат: Hello World
+
+        // 2. insert() - Вставляет строку в указанную позицию (по индексу)
+        sb.insert(5, " Beautiful");
+        System.out.println("2. insert: " + sb); // Результат: Hello Beautiful World
+
+        // 3. replace() - Заменяет символы с начального по конечный индекс на указанную строку
+        sb.replace(6, 15, "Java");
+        System.out.println("3. replace: " + sb); // Результат: Hello Java World
+
+        // 4. delete() - Удаляет подстроку от начального индекса до конечного (не включая его)
+        sb.delete(5, 10);
+        System.out.println("4. delete: " + sb); // Результат: Hello World
+
+        // 5. deleteCharAt() - Удаляет только один символ по указанному индексу
+        sb.deleteCharAt(5); // Удаляем пробел
+        System.out.println("5. deleteCharAt: " + sb); // Результат: HelloWorld
+
+        // 6. setCharAt() - Заменяет символ по указанному индексу на новый
+        sb.setCharAt(0, 'h');
+        System.out.println("6. setCharAt: " + sb); // Результат: helloWorld
+
+        // 7. reverse() - Переворачивает строку задом наперед
+        sb.reverse();
+        System.out.println("7. reverse: " + sb); // Результат: dlroWolleh
+
+        //возвращаем в нормальный вид для следующих примеров
+        sb.reverse(); 
+
+        // 8. length() - Возвращает длину
+        int len = sb.length();
+        System.out.println("8. length: " + len); // Результат: 10
+
+        // 9. capacity() - Возвращает текущую выделенную емкость буфера
+        int cap = sb.capacity();
+        System.out.println("9. capacity: " + cap); // Результат: 16 + длина добавленных строк
+
+        // 10. setLength() - Устанавливает новую длину строки. Если меньше текущей, то обрезает, если больше, то заполняет null-символами
+        sb.setLength(5);
+        System.out.println("10. setLength: " + sb); // Результат: hello
+    }
+}
+
+2) public class StringConversion {
+    public static void main(String[] args) {
+        
+        // 1. Из String в StringBuilder и StringBuffer
+        String str = "Обычная строка";
+        
+        //используем конструктор, передавая обычную строку
+        StringBuilder builder = new StringBuilder(str);
+        StringBuffer buffer = new StringBuffer(str);
+        
+        
+        //2. Из StringBuilder и StringBuffer в String
+        //используем встроенный метод toString(), который есть у обоих классов
+        String strFromBuilder = builder.toString();
+        String strFromBuffer = buffer.toString();
+        
+        
+        //3. Взаимное преобразование StringBuilder и StringBuffer
+        //напрямую они друг в друга не конвертируются, так как находятся на одном уровне иерархии.
+        //поэтому нужно использовать промежуточное преобразование в String (через toString())
+        
+        /из StringBuilder в StringBuffer:
+        StringBuffer newBuffer = new StringBuffer(builder.toString());
+        
+        //из StringBuffer в StringBuilder:
+        StringBuilder newBuilder = new StringBuilder(buffer.toString());
+        
+        System.out.println("Все преобразования выполнены успешно!");
+    }
+}
