@@ -1,0 +1,43 @@
+// Создаем иерархию исключений: Ex1 <- Ex2 <- Ex3
+class Ex1 extends Exception {}
+class Ex2 extends Ex1 {}
+class Ex3 extends Ex2 {}
+
+//создаем пару независимых исключений для демонстрации
+class SomeExceptionA extends Exception {}
+class SomeExceptionB extends Exception {}
+
+public class ExceptionHandlingExample {
+    public static void main(String[] args) {
+        try {
+            //здесь может быть код, генерирующий различные исключения
+            throw new Ex2(); 
+            
+        } catch (SomeExceptionA | SomeExceptionB e) {
+            //1: Несколько исключений обрабатываются абсолютно идентичным образом.
+            // Используется multi-catch. Эти классы не должны быть в одной иерархии
+            System.out.println("Произошла ошибка типа A или B. Обработка одинаковая.");
+            
+        } catch (Ex3 e) {
+            //2: Иерархия исключений. 
+            //сначала ловим самого "младшего" потомка (Ex3)
+            System.out.println("Перехвачено исключение Ex3");
+            
+        } catch (Ex2 e) {
+            //затем ловим его родителя (Ex2)
+            System.out.println("Перехвачено исключение Ex2");
+            
+        } catch (Ex1 e) {
+            //и в конце ловим самого "старшего" предка в цепочке (Ex1)
+            System.out.println("Перехвачено исключение Ex1");
+        }
+    }
+}
+
+
+практика 2)
+try {
+    // ...
+} catch (final Exception e) {
+    // ...
+}
