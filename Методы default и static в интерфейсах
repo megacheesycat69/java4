@@ -1,0 +1,84 @@
+// практика #1
+
+Вот пример, демонстрирующий использование default и static методов в интерфейсе, а также способы их вызова.
+
+
+public interface Device 
+{
+    void turnOn();     // абстрактный метод (нужно реализовать)
+    default void reset()     // не абстрактный (default) метод - общая логика для всех
+    {
+        System.out.println("выполняется перезагрузка устройства...");
+    }
+
+    static void showVersion()      // Статический метод - вспомогательная утилита интерфейса
+    {
+        System.out.println("Device OS v1.0");
+    }
+}
+
+public class Smartphone implements Device 
+{
+    @Override
+    public void turnOn() 
+   {
+        System.out.println("смартфон включается.");
+    }
+    
+    // reset() можно не переопределять, он уже готов
+}
+
+public class Main 
+{
+    public static void main(String[] args)
+    {
+        Smartphone myPhone = new Smartphone();
+
+        // 1. вызов абстрактного метода (реализован в классе)
+        myPhone.turnOn();
+
+        // 2. вызов default метода (через экземпляр класса)
+        myPhone.reset();
+
+        // 3. вызов статического метода (только через имя интерфейса)
+        Device.showVersion();
+        
+        // myPhone.showVersion(); // ошибка, статические методы интерфейса не наследуются объектами
+    }
+}
+
+// практика #2
+
+Если класс реализует два интерфейса с идентичными default-методами, возникнет ошибка компиляции (конфликт наследования). Компилятор не знает, какую из реализаций использовать, и требует от разработчика устранить неоднозначность.
+
+Как это решить?
+Нужно переопределить конфликтующий метод в самом классе. Внутри него вы можете:
+1. Написать совершенно новую логику. 
+2. Явно вызвать реализацию из конкретного интерфейса, используя синтаксис: Интерфейс.super.метод().
+
+interface Camera 
+{
+    default void powerOn() 
+   {
+        System.out.println("камера включена");
+    }
+}
+
+interface Radio 
+{
+    default void powerOn() 
+    {
+        System.out.println("радио включено");
+    }
+}
+
+// без переопределения powerOn() класс не скомпилируется
+public class MultiTool implements Camera, Radio 
+{
+    @Override
+    public void powerOn() 
+    {
+        Camera.super.powerOn();           // выбираем реализацию из Camera
+        System.out.println("Система MultiTool запущена");           // добавляем свою логику
+    }
+}
