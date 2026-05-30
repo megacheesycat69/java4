@@ -1,0 +1,17 @@
+public class InvalidUserAgeException extends Exception {
+
+    //конструктор по умолчанию (без параметров)
+    public InvalidUserAgeException() {
+        super();
+    }
+
+    //конструктор, принимающий только сообщение об ошибке
+    public InvalidUserAgeException(String message) {
+        super(message);
+    }
+
+    //конструктор, принимающий сообщение и причину
+    public InvalidUserAgeException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
