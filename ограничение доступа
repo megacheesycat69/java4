@@ -1,0 +1,37 @@
+package p1;
+public class A {
+    private   int a = 1;
+              int b = 2;      //default (package-private)
+    protected int c = 3;
+    public    int d = 4;
+}
+
+//тот же пакет: доступны b, c, d
+package p1;
+class B {
+    void m() {
+        A obj = new A();
+        // obj.a; // ошибка
+        System.out.println(obj.b + " " + obj.c + " " + obj.d);
+    }
+}
+
+//доступен только public
+package p2;
+import p1.A;
+class C {
+    void m() {
+        A obj = new A();
+        // obj.a, obj.b, obj.c — ошибка
+        System.out.println(obj.d);
+    }
+}
+
+//доступны protected и public
+package p2;
+class D extends A {
+    void m() {
+        // a, b — ошибка
+        System.out.println(c + " " + d);
+    }
+}
