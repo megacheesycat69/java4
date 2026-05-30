@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class InstanceOfGenericDemo {
+    public static void main(String[] args) {
+        List<String> stringList = new ArrayList<>();
+
+        //ошибка компиляции 
+        // boolean isStringList = stringList instanceof List<String>; 
+
+        // так можно: Использование маски <?>
+        // Проверяет, является ли объект списком (с любым типом)
+        if (stringList instanceof List<?>) {
+            System.out.println("Объект является списком (List).");
+        }
+    }
+}
+
+2) <? extends T> — коллекция работает как поставщик . Из нее можно только читать, но нельзя добавлять новые элементы.
+<? super T> — коллекция работает как потребитель. В нее безопасно записывать элементы типа T, но читать из нее можно только Object
+import java.util.List;
+
+public class BoundedWildcardsDemo {
+
+    // 1. <? extends T>
+   //принимает List<Number>, List<Integer>, List<Double> и т.д.
+    public static double sumNumbers(List<? extends Number> list) {
+        double sum = 0;
+        //читать безопасно, мы точно знаем, что внутри Number или его наследники
+        for (Number num : list) { 
+            sum += num.doubleValue();
+        }
+        // list.add(10); // ошибка компиляции, нельзя добавлять, так как неизвестен точный тип списка.
+        return sum;
+    }
+
+    // 2. <? super T>
+    //принимает List<Integer>, List<Number>, List<Object>
+    public static void addIntegers(List<? super Integer> list) {
+        //писать безопасно -integer поместится и в Number, и в Object
+        list.add(10); 
+        list.add(20);
+        
+        //Integer n = list.get(0); // ошибка! Читать можно только как базовый Object.
+    }
+}
