@@ -1,0 +1,140 @@
+// Практика #1
+
+Спецификаторы доступа для внутренних классов работают так же, как для методов или полей: они определяют, кто может создать экземпляр этого класса или даже просто увидеть его тип
+//1.1. public (Общедоступный) Класс виден всем. Его можно создать в любом другом классе проекта, но так как он внутренний, нам всё равно сначала нужен объект внешнего класса.
+public class House 
+{
+    public class Door 
+    { 
+        public void open() { System.out.println("Дверь открыта"); }
+    }
+}
+
+// Использование в другом классе:
+House myHouse = new House();
+House.Door door = myHouse.new Door(); // Доступно везде
+
+// 1.2. private (Приватный) Класс виден только внутри своего внешнего класса. Это полезно для «вспомогательных объектов, которые не должны быть известны снаружи (инкапсуляция).
+
+public class BankAccount 
+{
+    private class Transaction
+    { 
+        private double amount;
+    }
+
+    public void process() 
+    {
+        Transaction t = new Transaction();      // внутри BankAccount доступ есть
+    }
+}
+
+// В другом классе:
+// BankAccount.Transaction t; // ошибка: Transaction has private access
+
+//1.3. protected (Защищенный) Класс доступен внутри того же пакета, а также наследникам внешнего класса (даже если они в других пакетах).
+
+public class Library {
+    protected class Catalog { } 
+}
+
+public class CityLibrary extends Library {
+    public void setup() {
+        Catalog cat = new Catalog(); // Наследник видит класс
+    }
+}
+
+//1.4. Default. Класс виден только тем классам, которые находятся в том же самом пакете.
+
+class Engine 
+{ 
+    class Piston { }    // default access
+}
+
+// Практика #2 
+
+Да, внутренний класс имеет полный доступ ко всем полям и методам внешнего класса, включая те, что помечены как private. Это одна из главных особенностей внутренних классов: они считаются частью внешнего класса, поэтому правила инкапсуляции между ними не действуют.
+
+public class Smartphone {
+    private String model = "iPhone 15 pro ultra max 67";
+    private boolean isCharged = false;
+
+    private void startCharging() 
+    {
+        System.out.println("зарядка пошла...");
+        isCharged = true;
+    }
+
+    public class Processor     // Внутренний класс
+       {
+        public void work() 
+            {
+            System.out.println("процессор запущен в " + model);                // Прямой доступ к приватном полю
+            if (!isCharged)               // Прямой доступ к приватному методу
+            {
+                startCharging();
+            }
+        }
+    }
+}
+
+
+Когда вы создаете объект внутреннего класса, он автоматически получает скрытую ссылку на экземпляр внешнего класса. Если имена полей совпадают, вы можете явно обратиться к внешнему классу через конструкцию ВнешнийКласс.this. 
+
+public class Outer {
+    private String name = "Внешний";
+
+    public class Inner 
+    {
+        private String name = "Внутренний";
+
+        public void printNames() 
+        {
+            System.out.println(name);                    // Выведет "Внутренний"
+            System.out.println(Outer.this.name);  // Выведет "Внешний"
+        }
+    }
+}
+
+Да, внешний класс имеет доступ к полям и методам внутреннего класса, но с одним важным условием: он должен делать это через экземпляр (объект) внутреннего класса.
+В отличие от обратной ситуации (где внутренний класс видит всё автоматически), внешний класс не может обращаться к содержимому внутреннего класса напрямую (просто по имени), так как внутренние компоненты не являются частью области видимости внешнего класса.
+
+Как доступ зависит от спецификаторов? Внутри одного файла .java внешний класс имеет доступ к всем членам внутреннего класса, включая private. Спецификаторы доступа (private, protected и тд) начинают работать только тогда, когда к членам внутреннего класса пытаются обратиться из других внешних классов.
+
+public class Building {
+    
+    public void checkSecurity()
+   {
+        Alarm system = new Alarm();         // Создаем объект внутреннего класса
+        System.out.println("cтатус системы: " + system.status); 
+        system.activate();
+    }
+
+    public class Alarm 
+    {
+        private String status = "OK";
+        
+        private void activate() 
+        {
+            System.out.println("Сирена включена");
+        }
+    }
+}
+
+// 2. Разница между именами 
+// Внешний класс не видит переменные внутреннего класса как свои собственные:
+
+public class Outer 
+{
+    void test() 
+    {
+        // x = 10; // ошибка: переменная x не существует в Outer
+        Inner in = new Inner();
+        in.x = 10; // а так уже можно, доступ через объект
+    }
+
+    class Inner 
+    {
+        private int x;
+    }
+}
