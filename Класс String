@@ -1,0 +1,62 @@
+public class StringMethodsDemo {
+    public static void main(String[] args) {
+        //исходная строка с лишними пробелами по краям для демонстрации
+        String text = "   Hello, Java World!   ";
+
+        //1. length() - возвращает количество символов в строке
+        System.out.println("1. Длина строки: " + text.length());
+
+        //2. trim() - удаляет пробелы в начале и в конце строки
+        String cleanText = text.trim();
+        System.out.println("2. Без лишних пробелов: '" + cleanText + "'");
+
+        //3. toUpperCase() - переводит все символы строки в верхний регистр
+        System.out.println("3. Верхний регистр: " + cleanText.toUpperCase());
+
+        // 4. toLowerCase() - переводит все символы строки в нижний регистр
+        System.out.println("4. Нижний регистр: " + cleanText.toLowerCase());
+
+        //5. substring() - вырезает часть строки.
+        System.out.println("5. Подстрока (с 7 индекса): " + cleanText.substring(7));
+
+        //6. replace() - заменяет все вхождения указанного символа или подстроки на новые
+        System.out.println("6. Замена слов: " + cleanText.replace("Java", "Beautiful"));
+
+        //7. contains() - проверяет, содержит ли строка указанный текст
+        System.out.println("7. Содержит 'World'?: " + cleanText.contains("World"));
+
+        // 8. charAt() - возвращает конкретный символ, находящийся по указанному индексу
+        System.out.println("8. Символ под индексом 0: " + cleanText.charAt(0));
+
+        //9. startsWith() - проверяет, начинается ли строка с указанного префикса
+        System.out.println("9. Начинается с 'Hello'?: " + cleanText.startsWith("Hello"));
+
+        //10. indexOf() - находит индекс первого вхождения указанной подстроки
+        System.out.println("10. Индекс буквы 'W': " + cleanText.indexOf("W"));
+    }
+}
+
+2)
+import java.util.StringJoiner;
+public class StringJoinerDemo {
+    public static void main(String[] args) {
+        
+        //1: Только разделител
+        StringJoiner fruits = new StringJoiner(", ");
+        fruits.add("Яблоко").add("Банан").add("Апельсин");
+        
+        System.out.println("Фрукты: " + fruits.toString()); 
+        //вывод: Фрукты: Яблоко, Банан, Апельсин
+
+
+        //2:разделитель, префикс "[" и суффикс "]"
+        //это очень удобно для форматирования списков или массивов
+        StringJoiner numbers = new StringJoiner("; ", "[", "]");
+        numbers.add("Один").add("Два").add("Три");
+        
+        System.out.println("Числа: " + numbers.toString()); 
+        //вывод: Числа
+    }
+}
+
+3)Тройные двойные кавычки (""") используются в Java для создания текстовых блоков. Они нужны для удобного написания многострочного текста.
