@@ -1,0 +1,4 @@
+class X {
+    void m(int... a) {}
+    void m(String... a) {}
+}
