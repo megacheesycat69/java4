@@ -1,0 +1,19 @@
+1)// byte
+byte b = 1;
+switch (b) { case 1: break; default: }
+
+// short
+short s = 2;
+switch (s) { case 2: break; }
+
+// char
+char c = 'A';
+switch (c) { case 'A': break; }
+
+// int
+int i = 10;
+switch (i) { case 10: break; }
+
+String str = "yes";
+switch (str) { case "yes": break; }
+2)В итоге для значения 2 переменная i получит 3.
