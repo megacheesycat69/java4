@@ -1,0 +1,7 @@
+1)enum Color {
+    RED(0xFF0000), GREEN(0x00FF00), BLUE(0x0000FF);
+    private int rgb;
+    Color(int rgb) { this.rgb = rgb; }
+}
+
+2)enum Size { SMALL, MEDIUM, LARGE; String desc() { return name(); } }
