@@ -1,0 +1,27 @@
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        System.out.println("--- Начало работы программы ---");
+
+        //исключение, которое будет перехвачено
+        try {
+            System.out.println("\nПопытка деления на ноль...");
+            int result = 10 / 0; //генерирует ArithmeticException
+            System.out.println("Этот текст не выведется.");
+        } catch (ArithmeticException e) {
+            System.out.println("УСПЕХ: Исключение перехвачено! Ошибка: " + e.getMessage());
+        }
+
+        System.out.println("Программа успешно продолжила работу после блока try-catch.");
+
+        // 2. Исключение, которое приведет к АВАРИЙНОЙ ОСТАНОВКЕ
+        System.out.println("\nПопытка вызвать метод у null-объекта...");
+        String text = null;
+        
+        //генерирует NullPointerException. Так как здесь нет блока try-catch, 
+        //исключение улетит вверх по стеку вызовов и уронит программу.
+        int length = text.length(); 
+
+        //седующая строка кода никогда не будет выполнена
+        System.out.println("--- Конец работы программы ---");
+    }
+}
