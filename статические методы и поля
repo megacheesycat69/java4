@@ -1,0 +1,14 @@
+//напрямую из того же класса
+printVars();
+
+//через имя класса из любого места
+A.printVars();
+
+//через объект (работает, но не рекомендуется)
+A obj = new A();
+obj.printVars();
+
+
+//статический импорт
+import static A.printVars;
+printVars();
