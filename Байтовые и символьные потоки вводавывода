@@ -1,0 +1,17 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class InputStreamExample {
+    public static void main(String[] args) {
+        try (FileInputStream fis = new FileInputStream("input.txt")) {
+            int byteData;
+            //читаем файл по байту до тех пор, пока не получим -1
+            while ((byteData = fis.read()) != -1) {
+                //приводим байт к символу для наглядного вывода в консоль
+                System.out.print((char) byteData); 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
