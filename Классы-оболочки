@@ -1,0 +1,34 @@
+1)Long.decode("0xff");// 255
+
+2) 
+Boolean b3 = Boolean.valueOf(true);
+Boolean b4 = Boolean.valueOf("true");\
+Boolean b5 = true;         
+Boolean b6 = Boolean.parseBoolean("true"); 
+
+Boolean b7 = Boolean.TRUE;
+Boolean b8 = Boolean.FALSE;
+
+Boolean b9 = Boolean.class.getDeclaredConstructor(boolean.class).newInstance(true);
+Boolean b10 = Boolean.class.getDeclaredConstructor(String.class).newInstance("true");
+3)Integer x = null;
+int y = x;   //NullPointerException при автораспаковке null в int
+
+
+void foo(int n) { }
+foo(null);    //NPE, попытка распаковать null в int
+4) a1==i1 true
+b1==i1 true
+a1==b1 false
+a1.equals(i1) -> true
+b1.equals(i1) -> true
+a1.equals(b1) -> true
+a2==i2 true
+b2==i2 true
+a2==b2 true
+a2.equals(i2) -> true
+b2.equals(i2) -> true
+a2.equals(b2) -> true
+При сравнении Integer с int оператором == происходит автораспаковка Integer в int, сравниваются сами числа, поэтому a1==i1 и b1==i1 дают true.
+При сравнении двух Integer оператором == сравниваются ссылки. Для значений вне диапазона -128..127 автоупаковка создаёт разные объекты, поэтому a1==b1 даёт false. Для 127 попадаем в кэш, и a2==b2 - true.
+Метод equals сравнивает значения (int) внутри обёрток, поэтому для одинаковых чисел всегда возвращает true.
