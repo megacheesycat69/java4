@@ -1,0 +1,22 @@
+1) class Example {
+    void print(int x) { System.out.println("int: " + x); }
+    void print(String s) { System.out.println("String: " + s); }
+}
+
+2)class Parent {
+    Number getValue() { return 10; }
+}
+
+class Child extends Parent {
+    @Override
+    Integer getValue() { return 20; }  // допустимо: Integer — подтип Number
+}
+
+3)class Parent {
+    void doWork(int value) {}
+}
+
+class Child extends Parent {
+    @Override
+    void doWork(long value) {} // ошибка компиляции: метод не переопределяет
+}
