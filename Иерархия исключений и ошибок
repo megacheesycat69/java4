@@ -1,0 +1,61 @@
+1)
+java.lang.Throwable: Это самый главный класс в иерархии обработки ошибок Java. Только объекты этого класса (и его наследников) могут быть сгенерированы с помощью оператора throw и перехвачены в блоке catch.
+
+java.lang.Error: Этот класс представляет серьезные проблемы, которые возникают на уровне самой виртуальной машины JVM и обычно не подлежат обработке в приложении. Примеры: OutOfMemoryError, StackOverflowError. Программа не должна пытаться ловить ошибки этого типа, так как восстановить работу после них практически невозможно.
+
+java.lang.Exception: Базовый класс для исключений, которые приложение может и должно предвидеть и обрабатывать. Исключения, наследуемые напрямую от Exception (кроме RuntimeException), называются проверяемыми. Компилятор строго заставит написать блок try-catch или указать throws в сигнатуре метода.
+
+java.lang.RuntimeException: Подкласс класса Exception, обозначающий ошибки, возникающие во время выполнения программы. Эти исключения называются непроверяемыми. Компилятор не заставляет вас их перехватывать. Обычно они свидетельствуют об ошибках в логике самого кода, например: деление на ноль, выход за границы массива или обращение к пустой ссылке.
+
+
+2)public class ExceptionExamples {
+    public static void main(String[] args) {
+
+        // 1.ArithmeticException
+        //возникает при недопустимых математических операциях, чаще всего — деление целого числа на ноль.
+        try {
+            int a = 10;
+            int b = 0;
+            int result = a / b; 
+        } catch (ArithmeticException e) {
+            System.out.println("1. ArithmeticException поймано: попытка деления на ноль.");
+        }
+
+        // 2. ArrayIndexOutOfBoundsException
+        //возникает при попытке обратиться к элементу массива по индексу, которого не существует.
+        try {
+            int[] numbers = {1, 2, 3};
+            // Массив имеет размер 3, индексы от 0 до 2. Пытаемся обратиться к индексу 10.
+            int value = numbers[10]; 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("2. ArrayIndexOutOfBoundsException поймано: выход за пределы массива.");
+        }
+
+        // 3. IllegalArgumentException
+        //возникает, когда в метод передается некорректный аргумент.
+        try {
+            java.util.ArrayList<String> list = new java.util.ArrayList<>(-5); 
+        } catch (IllegalArgumentException e) {
+            System.out.println("3. IllegalArgumentException поймано: передан недопустимый аргумент.");
+        }
+
+        // 4.ClassCastException
+        //возникает при попытке неверного приведения типов объектов.
+            Object textObject = "Это строка, а не число";
+            //пытаемся заставить Java думать, что строка — это число
+            Integer number = (Integer) textObject; 
+        } catch (ClassCastException e) {
+            System.out.println("4. ClassCastException поймано: ошибка приведения типов.");
+        }
+
+        // 5. NullPointerException
+        //возникает при попытке вызвать метод или обратиться к полю объекта, ссылка на который равна null.
+        try {
+            String emptyString = null;
+            //пытаемся узнать длину у "ничего"
+            int length = emptyString.length(); 
+        } catch (NullPointerException e) {
+            System.out.println("5. NullPointerException поймано: обращение к null-объекту.");
+        }
+    }
+}
