@@ -1,0 +1,9 @@
+class Parent {
+    static void m() { System.out.println("Parent"); }
+}
+class Child extends Parent {
+    static void m() { System.out.println("Child"); }
+}
+
+Parent p = new Child();
+p.m(); // вызовет Parent.m(), а не Child.m() - решение принято на основе типа ссылки Parent
