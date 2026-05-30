@@ -1,0 +1,11 @@
+1)Вывод: a1 содержит {6,7,8,9,10}, разделяет данные с a2
+2)// toString
+System.out.println(Arrays.toString(new int[]{1,2,3}));
+//sort
+int[] a = {3,1,2}; Arrays.sort(a);
+//binarySearch
+int i = Arrays.binarySearch(new int[]{1,2,3}, 2);
+//equals
+boolean eq = Arrays.equals(new int[]{1,2}, new int[]{1,2});
+//compare
+int cmp = Arrays.compare(new int[]{1,2}, new int[]{1,3});
