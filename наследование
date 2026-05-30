@@ -1,0 +1,29 @@
+class Parent {
+    int x = 1;
+    void m() { System.out.println("Parent"); }
+}
+
+class Child extends Parent {
+    int x = 2;
+    void m() { System.out.println("Child"); }
+
+    void test() {
+        int x = 3;
+        System.out.println(x);        //3 (локальная)
+        System.out.println(this.x);   //2 (поле Child)
+        System.out.println(super.x);  //1 (поле Parent)
+        m();          //Child
+        this.m();     //Child
+        super.m();    //Parent
+    }
+
+    Child() { super(); }  //вызов конструктора Parent
+}
+
+2) private - не видны вообще (ни в каком потомке).
+
+Без модификатора (default) - видны, только если потомок находится в том же пакете.
+
+protected - видны во всех потомках, независимо от пакета (но доступны только через собственный код или ссылку своего подкласса, не через родительский объект извне).
+
+public – видны везде и всем.
