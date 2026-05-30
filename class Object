@@ -1,0 +1,21 @@
+class Person {
+    private final String name;
+    private final int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;          //рефлексивность, быстрая проверка
+        if (!(o instanceof Person)) return false; //проверка на null и тип
+        Person person = (Person) o;
+        return age == person.age &&
+               Objects.equals(name, person.name); //посимвольное сравнение значимых полей
+    }
+
+    @Override
+    public int hashCode() { … } 
+}
