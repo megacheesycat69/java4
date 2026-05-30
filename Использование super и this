@@ -1,0 +1,43 @@
+1)class Parent {
+    int x;
+    Parent(int x) { this.x = x; }
+    void print() { System.out.println("Parent: " + x); }
+}
+
+class Child extends Parent {
+    int x;
+    Child(int pX, int cX) {
+        super(pX);                // 1. вызов конструктора суперкласса
+        this.x = cX;
+    }
+    void print() {
+        super.print();            // 3. вызов метода суперкласса
+        System.out.println("Child: " + x);
+        System.out.println("super.x = " + super.x); // 2. поле суперкласса
+    }
+}
+
+2)super.a и super.method() в классе C обратятся к унаследованным членам класса A, поскольку B их не переопределяет. Код скомпилируется и выполнится, используя реализации из A.
+
+3) class A {
+    int a, b, c, z;
+
+    public A() {
+        this(0, 0, 0);
+    }
+
+    public A(int a) {
+        this(a, 0, 0);
+    }
+
+    public A(int a, int b) {
+        this(a, b, 0);
+    }
+
+    public A(int a, int b, int c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.z = 1;
+    }
+}
